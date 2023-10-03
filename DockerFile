@@ -1,39 +1,14 @@
-FROM python:3.10-slim AS base
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends curl git build-essential \
-    && apt-get autoremove -y
-ENV POETRY_HOME="/opt/poetry"
-RUN curl -sSL https://install.python-poetry.org | python3 -
+FROM python:3.9.18-slim
 
-FROM base AS install
-WORKDIR /home/code
+WORKDIR /app
 
-# allow controlling the poetry installation of dependencies via external args
-ARG INSTALL_ARGS="--no-root --only main"
-ENV POETRY_HOME="/opt/poetry"
-ENV PATH="$POETRY_HOME/bin:$PATH"
-COPY pyproject.toml poetry.lock ./
+COPY requirements.txt .
 
-# install without virtualenv, since we are inside a container
-RUN poetry config virtualenvs.create false \
-    && poetry install $INSTALL_ARGS
+RUN pip3 install --no-cache-dir --upgrade pip \
+    && pip3 install --no-cache-dir -r requirements.txt
 
-# cleanup
-RUN curl -sSL https://install.python-poetry.org | python3 - --uninstall
-RUN apt-get purge -y curl git build-essential \
-    && apt-get clean -y \
-    && rm -rf /root/.cache \
-    && rm -rf /var/apt/lists/* \
-    && rm -rf /var/cache/apt/*
+COPY . .
 
-FROM install as app-image
+EXPOSE 8000
 
-COPY greens greens
-COPY tests tests
-COPY .env ./
-
-# create a non-root user and switch to it, for security.
-RUN addgroup --system --gid 1001 "vuluu2k"
-RUN adduser --system --uid 1001 "vuluu2k"
-USER "vuluu2k"
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
