@@ -1,1 +1,1 @@
-python --verison
+docker run  exec app python -m venv venv
