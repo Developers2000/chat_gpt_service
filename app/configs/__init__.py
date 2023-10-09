@@ -14,6 +14,10 @@ class DatabaseSettings(BaseSettings):
     DB_NAME_CHATGPT: str = f"{DB_NAME_CHATGPT}"
 
 
+class ChatGptSettings(BaseSettings):
+    pass
+
+
 class Settings(DatabaseSettings):
     pass
 
