@@ -4,8 +4,6 @@ from .routers import router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from dotenv import load_dotenv
-load_dotenv()
 
 
 app = FastAPI()
@@ -36,4 +34,4 @@ async def shutdown():
         app.mongodb_chatgpt_client.close()
     ]
 
-    asyncio.gather(*tasks)
+    await asyncio.gather(*tasks)
