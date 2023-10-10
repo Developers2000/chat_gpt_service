@@ -1,8 +1,6 @@
 def convert_json_of_mongo(data):
-
     for item in data:
-        item["_id"] = str(item["_id"])
-        item["updatedAt"] = str(item["updatedAt"])
-        item["createdAt"] = str(item["createdAt"])
-
+        for key, value in item.items():
+            if not isinstance(value, (str, int, float, bool, list, dict)):
+                item[key] = str(value)
     return data
