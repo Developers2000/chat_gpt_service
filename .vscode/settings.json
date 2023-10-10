@@ -1,6 +1,6 @@
 {
   "editor.formatOnSave": true,
-  "cSpell.words": ["dotenv", "fastapi", "GOLIVE", "pydantic"],
+  "cSpell.words": ["bson", "dotenv", "fastapi", "GOLIVE", "pydantic"],
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8"
   }
