@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Request, Body, status, HTTPException
 from fastapi.responses import JSONResponse
+from fastapi.encoders import jsonable_encoder
 
 
 from app.models.build_model import BuildModel
