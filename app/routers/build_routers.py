@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 
 
 from app.models.build_model import BuildModel
-import app.controllers.build_controllers as build_controllers
+from app.controllers.build_controllers import build_learning_path
 from app.utils.convert import convert_json_of_mongo
 
 router = APIRouter()
@@ -12,7 +12,12 @@ router = APIRouter()
 
 @router.post("/learning_path")
 async def learning_path(request: Request, body: BuildModel = Body(...)):
-    return build_controllers.build_learning_path(request, body)
+    learning_path = await build_learning_path(request, body)
+    if learning_path is not None:
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"learning_path": learning_path})
+
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST,
+                        detail="Can't build learning path")
 
 
 @router.get("/test/get-users")

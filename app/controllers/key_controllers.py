@@ -10,6 +10,6 @@ async def add_key(request, body):
     return openai_key
 
 
-async def get_key_by_user_id(request, user_id):
+async def get_openai_key_by_user_id(request, user_id):
     openai_key = await request.app.chatgpt["keys"].find_one({"user_id": user_id})
     return openai_key
