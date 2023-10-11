@@ -1,4 +1,4 @@
-# chat_gpt_service
+# CHAT GPT SERVICE
 Project is a bot GPT for build learning path.
 You can use AI bot of Open AI build some your favorite
 
@@ -14,6 +14,8 @@ python3.11 -m venv venv
 ```cmd
 # activate
 source ./venv/bin/activate
+```
+```cmd
 # deactivate
 deactivate
 ```
