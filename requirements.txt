@@ -11,6 +11,7 @@ dnspython==2.4.2
 email-validator==2.0.0.post2
 fastapi==0.103.2
 frozenlist==1.4.0
+gunicorn==21.2.0
 h11==0.14.0
 httpcore==0.18.0
 httptools==0.6.0
@@ -23,6 +24,7 @@ motor==3.3.1
 multidict==6.0.4
 openai==0.28.1
 orjson==3.9.7
+packaging==23.2
 pydantic==2.4.2
 pydantic-extra-types==2.1.0
 pydantic-settings==2.0.3
