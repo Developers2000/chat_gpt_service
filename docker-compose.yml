@@ -3,7 +3,7 @@ services:
   app:
     container_name: chat_gpt_service
     build:
-      context: .
+      context: ./docker
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
