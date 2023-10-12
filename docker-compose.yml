@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   app:
     container_name: chat_gpt_service
@@ -6,19 +6,19 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - '8000:8000'
+      - "8000:80"
     restart: unless-stopped
     volumes:
       - .:/app
-    depends_on:
-      - db
-  db:
-    container_name: chat_gpt_service_db
-    image: mongo
-    ports:
-      - '27017:27017'
-    volumes:
-      - mongodb_data:/data/db
+    # depends_on:
+    #   - db
+#   db:
+#     container_name: chat_gpt_service_db
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongodb_data:/data/db
 
-volumes:
-  mongodb_data:
+# volumes:
+#   mongodb_data:
