@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
 
 
-from app.models.build_model import BuildModel
+from app.models.build_model import BuildModel, MessageRequest
 from app.controllers.build_controllers import build_learning_path
 from app.utils.convert import convert_json_of_mongo
 
@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/learning_path")
-async def learning_path(request: Request, body: BuildModel = Body(...)):
+async def learning_path(request: Request, body: MessageRequest = Body(...)):
     learning_path = await build_learning_path(request, body)
     if learning_path is not None:
         return JSONResponse(status_code=status.HTTP_200_OK, content={"learning_path": learning_path})
