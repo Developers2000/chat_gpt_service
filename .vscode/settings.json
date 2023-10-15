@@ -8,6 +8,7 @@
     "jsonable",
     "openai",
     "pydantic",
+    "tiktoken",
     "venv"
   ],
   "[python]": {
