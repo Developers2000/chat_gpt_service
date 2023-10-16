@@ -1,32 +1,46 @@
 from fastapi.encoders import jsonable_encoder
-import tiktoken
+# import tiktoken
 from app.controllers.key_controllers import get_openai_key_by_user_id
-import openai
+# import openai
+
+# openai.api_key = "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"
+# openai.api_base = "http://localhost:1337"
 
 
-def nums_token_from_message(messages, model="gpt-3.5-turbo-0301"):
-    encoding = tiktoken.encoding_for_model(model)
-    nums_token = 0
-    for message in messages:
-        nums_token += 4
-        for key, value in message.items():
-            nums_token += len(encoding.encode(value))
-            if key == "name":
-                nums_token += -1
-    
-    nums_token += 2
-    return nums_token
+import g4f, asyncio
+
+_providers = [
+    g4f.Provider.Aichat,
+    g4f.Provider.ChatBase,
+    g4f.Provider.Bing,
+    g4f.Provider.GptGo,
+    # g4f.Provider.You,
+    # g4f.Provider.Yqcloud,
+]
+ 
+
+async def run_provider(provider: g4f.Provider.BaseProvider, message: str = "Hello"):
+    try:
+        response = await g4f.ChatCompletion.create_async(
+            model=g4f.models.default,
+            messages=[{"role": "user", "content": message}],
+            provider=provider,
+        )
+
+        return {f"{provider.__name__}": response}
+    except Exception as e:
+        return {f"{provider.__name__}": e}
+        
+async def run_all(message: str = "Hello"):
+    calls = [
+        run_provider(provider, message) for provider in _providers
+    ]
+    return await asyncio.gather(*calls)
+
+
 
 async def build_learning_path(request, body):
-    openai_key = await get_openai_key_by_user_id(request, body.user_id)
-    print(openai_key["key"], type(openai_key))
-    openai.api_key = openai_key["key"]
+    responses = await run_all(body.message)
 
-    chat_completion = openai.ChatCompletion.create(model="gpt-3.5-turbo", prompt=[{"role":"user", "content": body.message}], max_tokens=80)
-    print(chat_completion)
 
-    response = {
-        "message": "message",
-    }
-
-    return response
+    return {"responses" : responses}
