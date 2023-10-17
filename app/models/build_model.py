@@ -21,3 +21,9 @@ class BuildModel(BaseModel):
     id: str = Field(default_factory=uuid.uuid4, alias="_id")
     message: str | None = None
     user_id: str | None = None
+
+class ConversationModel(BaseModel):
+    id: str = Field(default_factory=uuid.uuid4, alias="_id")
+    messages: str | None = None
+    title: str | None = None
+    user_id: str | None = None

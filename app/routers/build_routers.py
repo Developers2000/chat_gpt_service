@@ -28,3 +28,13 @@ async def get_users(request: Request):
 
     raise HTTPException(
         status_code=status.HTTP_400_BAD_REQUEST, detail="Not users found")
+
+
+@router.post("/conversation")
+async def conversation(request: Request, body: MessageRequest = Body(...)):
+    conversation = await conversation(request, body)
+    if conversation is not None:
+        return JSONResponse(status_code=status.HTTP_200_OK, content={"conversation": conversation})
+
+    raise HTTPException(
+        status_code=status.HTTP_400_BAD_REQUEST, detail="Can't build conversation")

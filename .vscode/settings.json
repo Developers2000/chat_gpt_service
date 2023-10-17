@@ -1,17 +1,24 @@
 {
   "editor.formatOnSave": true,
   "cSpell.words": [
+    "Aichat",
     "bson",
     "dotenv",
     "fastapi",
     "GOLIVE",
     "jsonable",
+    "Liaobots",
     "openai",
     "pydantic",
+    "Raycast",
+    "Theb",
     "tiktoken",
-    "venv"
+    "venv",
+    "Vercel",
+    "Yqcloud"
   ],
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8"
-  }
+  },
+  "python.formatting.provider": "none"
 }
