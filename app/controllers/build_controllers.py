@@ -57,6 +57,7 @@ async def build_learning_path(request, body):
 
     return {"responses": responses}
 
+
 async def conversation(request, body):
     responses = await g4f.ChatCompletion.create(
         model=g4f.models.default,
