@@ -59,10 +59,12 @@ async def build_learning_path(request, body):
 
 
 async def conversation(request, body):
+    provider = body.provider
+
     responses = await g4f.ChatCompletion.create(
         model=g4f.models.default,
         messages=[{"role": "user", "content": body.message}],
-        provider=g4f.Provider.Theb
+        provider=provider if provider in _providers_sync else g4f.Provider.Theb
     )
 
     print(responses)
