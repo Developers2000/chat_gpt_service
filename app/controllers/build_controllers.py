@@ -68,6 +68,8 @@ async def conversation(request, body):
             provider = g4f.Provider.ChatBase
         case "theb":
             provider = g4f.Provider.Theb
+        case "gpt":
+            provider = g4f.Provider.GptGo
 
     responses = await g4f.ChatCompletion.create(
         model=g4f.models.default,
